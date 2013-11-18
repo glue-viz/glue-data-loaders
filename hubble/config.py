@@ -1,12 +1,13 @@
 from glue.core import Data
 from glue.core.coordinates import coordinates_from_wcs
 from glue.config import data_factory
+from glue.core.data_factories import has_extension
 
 import pyfits as fits
 from stwcs.wcsutil import HSTWCS
 
 
-@data_factory('Hubble Image', '*.fits *.fit', default='fits fit')
+@data_factory('Hubble Image', has_extension('fits fit'), default='fits fit')
 def hubble_data(filename):
     """
     Data loader customized for 'typical' hubble fits files

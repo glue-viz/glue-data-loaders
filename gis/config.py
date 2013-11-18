@@ -9,7 +9,7 @@ import shapefile
 from glue.core.coordinates import coordinates_from_wcs
 from glue.config import data_factory
 from glue.core import Data
-
+from glue.core.data_factories import has_extension
 
 def tfw_to_coords(filename, shp):
     """ Use a TIFF world file to build Glue Coordinates """
@@ -28,7 +28,7 @@ def tfw_to_coords(filename, shp):
     return coordinates_from_wcs(wcs)
 
 
-@data_factory('GIS TIFF', '*.tif', default='tif')
+@data_factory('GIS TIFF', has_extension('tiff tif'), default='tif')
 def read_tiff_metadata(filename):
     """ Read a TIFF image, looking for .tfw metadata """
     base, ext = os.path.splitext(filename)
@@ -43,7 +43,8 @@ def read_tiff_metadata(filename):
     return result
 
 
-@data_factory('GIS Shapefile', '*.shx *.shp *.dbf', default='shx shp dbf')
+@data_factory('GIS Shapefile', has_extension('shx shp dbf'),
+              default='shx shp dbf')
 def read_shp(filename):
     """ Read a GIS set of .shx, .shp, .dbf files """
     rec = shapefile.Reader(filename)
