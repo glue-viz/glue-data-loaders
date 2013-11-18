@@ -32,7 +32,7 @@ class YtComponent(Component):
         return True
 
 
-@data_factory('yt data', lambda x, **kwargs: False)
+@data_factory('yt data', '*')
 def yt_data(path):
     """Use yt to load a gridded dataset
 
